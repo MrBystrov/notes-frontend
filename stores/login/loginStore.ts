@@ -21,7 +21,6 @@ export const useLoginStore = defineStore("login", () => {
       }
 
       const responseData = data.value;
-      console.log(responseData.token);
       if (responseData) {
         localStorage.setItem(
           "user",

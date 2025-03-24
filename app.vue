@@ -12,7 +12,7 @@
         v-model="selectedLang"
         :options="Object.values(ELang)"
         :color="selectedThemeColor"
-        @change="setLocale(selectedLang)"
+        @change="handleSetLocale(selectedLang)"
       />
       <ClientOnly class="dark-switcher">
         <UButton
@@ -58,6 +58,26 @@ const { token } = useToken()
 const avatar = computed(() => {
   return currentUser.value.useravatar
 })
+
+const handleSetLocale = (locale: 'ru' | 'en') => {
+  localStorage.setItem('locale', locale)
+  setLocale(locale)
+}
+
+watch(selectedThemeColor, () => {
+  if(selectedThemeColor.value === null){
+    selectedThemeColor.value = 'primary'
+  }
+}, { immediate: true })
+
+onMounted(() => {
+  if (typeof window !== 'undefined' && localStorage.getItem('locale')) {
+    const locale = localStorage.getItem('locale') as 'ru' | 'en';
+    if(locale){
+      setLocale(locale);
+    }
+  }
+});
 
 </script>
 

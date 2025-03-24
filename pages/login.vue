@@ -71,6 +71,7 @@ const handleLogin = async (state: UserInfoWithoutName) => {
     navigateTo('/')
   }
 };
+
 </script>
 
 <style scoped></style>
