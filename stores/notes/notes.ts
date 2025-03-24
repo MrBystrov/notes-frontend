@@ -16,6 +16,7 @@ export const useNotesStore = defineStore("notes", () => {
 
   const getActiveNotes = async (range?: string, title?: string) => {
     try {
+      console.log('cookie', document.cookie)
       const queryParams = new URLSearchParams();
       if (range) {
         queryParams.append("range", range);
