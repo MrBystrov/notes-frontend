@@ -4,10 +4,10 @@ import type { UserInfoWithoutName } from "~/types/auth";
 import type { IUserData } from "./types";
 
 export const useLoginStore = defineStore("login", () => {
-  const isLoading = ref<boolean>(false)
+  const isLoading = ref<boolean>(false);
   const fetchLogin = async (body: UserInfoWithoutName) => {
     try {
-      isLoading.value = true
+      isLoading.value = true;
       const { data, error } = await useFetch<IUserData>(
         `${import.meta.env.VITE_BASE_URI}/auth/login`,
         {
@@ -33,7 +33,11 @@ export const useLoginStore = defineStore("login", () => {
             useravatar: responseData.user.useravatar,
           })
         );
-        document.cookie = `token=${responseData.token}; path=/; max-age=86400; secure; SameSite=None;`;
+        if (import.meta.env.VITE_MODE === "production") {
+          document.cookie = `token=${responseData.token}; path=/; max-age=86400; secure; SameSite=None;`;
+        } else {
+          document.cookie = `token=${responseData.token}; path=/; max-age=86400;`;
+        }
       } else {
         throw new Error("No data received from server");
       }
@@ -41,8 +45,8 @@ export const useLoginStore = defineStore("login", () => {
     } catch (err) {
       console.error("Login failed:", err);
       throw err;
-    } finally{
-      isLoading.value = false
+    } finally {
+      isLoading.value = false;
     }
   };
 
@@ -56,6 +60,6 @@ export const useLoginStore = defineStore("login", () => {
   return {
     fetchLogin,
     logOut,
-    isLoading
+    isLoading,
   };
 });
