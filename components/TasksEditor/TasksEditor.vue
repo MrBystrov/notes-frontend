@@ -24,7 +24,7 @@
         name="list" tag="ul" 
         class="task-items-list flex flex-col gap-2"
       >
-        <li v-for="(task, index) of tasksList.reverse()" :key="index" class="task-item">
+        <li v-for="(task, index) of tasksList" :key="index" class="task-item">
           <div :class="[`rounded-md p-2 flex gap-2 bg-${taskBg(task)}-100`]">
             <UCheckbox
               class="grow"
@@ -120,8 +120,10 @@ const taskBg = (task: ITaskItem) => {
 
 const handleAddTask = () => {
   if (editTaskText.value.length) {
-    tasksList.value?.push({ text: editTaskText.value, completed: false });
+    console.log("Adding task:", editTaskText.value);
+    tasksList.value.push({ text: editTaskText.value, completed: false });
     editTaskText.value = "";
+    console.log("Current tasks:", tasksList.value);
   }
 };
 
