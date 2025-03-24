@@ -33,7 +33,7 @@ export const useLoginStore = defineStore("login", () => {
             useravatar: responseData.user.useravatar,
           })
         );
-        document.cookie = `token=${responseData.token}; path=/; max-age=86400; `;
+        document.cookie = `token=${responseData.token}; path=/; max-age=86400; secure; SameSite=None;`;
       } else {
         throw new Error("No data received from server");
       }
