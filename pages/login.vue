@@ -17,7 +17,12 @@
       :color="selectedThemeColor"
       class="flex, items-center, justify-center, transition, duration-300"
     >
-      {{$t('login')}}
+        <span>{{$t('login')}}</span>
+    <template v-if="isLoading">
+      <!-- Индикатор загрузки (например, спиннер) -->
+      <span class="loader"></span>
+    </template>
+
     </UButton>
 
     <p class="self-center">
@@ -44,7 +49,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const loginStore = useLoginStore();
-const { fetchLogin } = loginStore;
+const { fetchLogin, isLoading } = loginStore;
 const { t } = useI18n();
 
 definePageMeta({
