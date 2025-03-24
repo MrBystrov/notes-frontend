@@ -11,44 +11,47 @@ export const useLoginStore = defineStore("login", () => {
         {
           method: "POST",
           body: body,
-          credentials: 'include',
+          credentials: "include",
         }
       );
 
       if (error.value) {
-        console.error('Login error:', error.value);
-        throw new Error(error.value.message || 'Login failed');
+        console.error("Login error:", error.value);
+        throw new Error(error.value.message || "Login failed");
       }
-      
-      const responseData = data.value;
-      console.log(responseData)
-      if (responseData) {
-        localStorage.setItem('user', JSON.stringify({
-          id: responseData.user._id,
-          useremail: responseData.user.useremail,
-          username: responseData.user.username,
-          useravatar: responseData.user.useravatar,
-        }))
 
+      const responseData = data.value;
+      console.log(responseData.token);
+      if (responseData) {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: responseData.user._id,
+            useremail: responseData.user.useremail,
+            username: responseData.user.username,
+            useravatar: responseData.user.useravatar,
+          })
+        );
+        document.cookie = `token=${responseData.token}; path=/; max-age=86400; secure; SameSite=None;`;
       } else {
-        throw new Error('No data received from server');
+        throw new Error("No data received from server");
       }
-      return data; 
+      return data;
     } catch (err) {
-      console.error('Login failed:', err);
+      console.error("Login failed:", err);
       throw err;
     }
   };
 
   const logOut = () => {
-    const token = useCookie('token');
+    const token = useCookie("token");
     token.value = null;
-  
-    navigateTo('login');
+
+    navigateTo("login");
   };
-  
+
   return {
     fetchLogin,
-    logOut
+    logOut,
   };
 });
