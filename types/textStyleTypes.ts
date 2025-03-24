@@ -1,0 +1,1 @@
+export type TTextStyleType = keyof CSSStyleDeclaration;
