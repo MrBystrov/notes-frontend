@@ -32,6 +32,7 @@
 <script setup lang="ts">
 import { object, string, type InferType } from "yup";
 import { useThemeStore } from "~/stores/theme/theme";
+import type { UserInfoWithoutName } from "~/types/auth";
 const { selectedThemeColor } =storeToRefs(useThemeStore())
 
 definePageMeta({
@@ -39,7 +40,7 @@ definePageMeta({
 });
 
 const state = reactive<UserInfoWithoutName>({
-  email: "",
+  useremail: "",
   password: "",
 });
 

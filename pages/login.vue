@@ -31,14 +31,6 @@
         {{$t('signup')}}
       </ULink>
     </p>
-    <ULink
-        to="/"
-        class="transition, duration-300"
-        :active-class="`text-${selectedThemeColor}-500`"
-        :inactive-class="`text-${selectedThemeColor}-500 dark:text-${selectedThemeColor}-500 hover:opacity-80 dark:hover:opacity-80`"
-      >
-        go
-      </ULink>
   </UForm>
 </template>
 
@@ -48,7 +40,9 @@ import type { UserInfoWithoutName } from "~/types/auth";
 import { useThemeStore } from "~/stores/theme/theme";
 import { storeToRefs } from "pinia";
 import { useLoginStore } from "~/stores/login/loginStore";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const loginStore = useLoginStore();
 const { fetchLogin } = loginStore;
 const { t } = useI18n();
@@ -73,6 +67,7 @@ const schema = object({
 const handleLogin = async (state: UserInfoWithoutName) => {
   const res = await fetchLogin(state);
   if(res){
+    router.push('/')
     navigateTo('/')
   }
 };
