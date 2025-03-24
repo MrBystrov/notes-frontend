@@ -31,7 +31,14 @@
         {{$t('signup')}}
       </ULink>
     </p>
-    <div></div>
+    <ULink
+        to="/"
+        class="transition, duration-300"
+        :active-class="`text-${selectedThemeColor}-500`"
+        :inactive-class="`text-${selectedThemeColor}-500 dark:text-${selectedThemeColor}-500 hover:opacity-80 dark:hover:opacity-80`"
+      >
+        go
+      </ULink>
   </UForm>
 </template>
 
